@@ -1,0 +1,9 @@
+#!/bin/bash
+
+mkdir -p $SNAP_DATA/conf
+cp -r $SNAP/etc/nginx/* $SNAP_DATA/conf
+mkdir -p $SNAP_DATA/log
+mkdir -p $SNAP_COMMON/www
+mv $SNAP_DATA/conf/html $SNAP_COMMON/www/
+ln -s $SNAP_COMMON/www/html $SNAP_DATA/conf/html
+
