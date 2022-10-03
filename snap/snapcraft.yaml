@@ -8,37 +8,22 @@ grade: devel
 confinement: strict
 apps:
   nginx:
-    command: usr/bin/nginx
+    command: bin/nginx -p $SNAP_DATA -e stderr
+    reload-command: bin/nginx -p $SNAP_DATA -e stderr -s reload
+    stop-command: bin/nginx -p $SNAP_DATA -e stderr -s quit
     daemon: forking
     install-mode: disable
     plugs:
       - network-bind
-layout:
-  /etc/nginx:
-    bind: $SNAP_DATA/conf
-  /var/log/nginx:
-    bind: $SNAP_DATA/log
-  /var/lib/nginx:
-    bind: $SNAP_DATA/var
-  /var/www:
-    bind: $SNAP_COMMON/www
+  testconf:
+    command: bin/nginx -p $SNAP_DATA -e stderr -t
 parts:
   nginx:
     plugin: autotools
     source: https://nginx.org/download/nginx-1.22.0.tar.gz
     autotools-configure-parameters:
-      - --prefix=/etc/nginx
-      - --sbin-path=/usr/bin/nginx
-      - --conf-path=/etc/nginx/nginx.conf
-      - --error-log-path=/var/log/nginx/error.log
-      - --pid-path=/var/lib/nginx/nginx.pid
-      - --lock-path=/var/lib/nginx/nginx.lock
-      - --http-log-path=/var/log/nginx/access.log
-      - --http-client-body-temp-path=/var/lib/nginx/client-body
-      - --http-proxy-temp-path=/var/lib/nginx/proxy
-      - --http-fastcgi-temp-path=/var/lib/nginx/fastcgi
-      - --http-scgi-temp-path=/var/lib/nginx/scgi
-      - --http-uwsgi-temp-path=/var/lib/nginx/uwsgi
+      - --prefix=/
+      - --sbin-path=/bin/nginx
       - --user=root
       - --group=root
     build-packages:
@@ -53,9 +38,5 @@ parts:
       - libperl-dev
       - libxslt1-dev
     stage-packages:
-      - libpcre2-16-0
-      - libpcre2-32-0
-      - libpcre3
-      - libpcre32-3
       - libgeoip1
 
