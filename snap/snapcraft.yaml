@@ -39,4 +39,11 @@ parts:
       - libxslt1-dev
     stage-packages:
       - libgeoip1
+    stage:
+      - -conf/nginx.conf
+  conf:
+    plugin: dump
+    source: conf
+    organize:
+      '*': conf/
 

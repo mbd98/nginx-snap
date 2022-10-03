@@ -1,4 +1,4 @@
 #!/bin/bash
-shopt -s extglob
-cp -r $SNAP/!(bin meta snap usr) $SNAP_DATA
+
+cp -r $SNAP/{conf,html,logs} $SNAP_DATA
 
