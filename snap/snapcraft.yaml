@@ -6,8 +6,6 @@ description: |
   Web server that can be used as a reverse proxy, load balancer, mail proxy, and HTTP cache
 grade: devel
 confinement: strict
-system-usernames:
-  snap_daemon: shared
 apps:
   nginx:
     command: usr/bin/nginx
@@ -41,8 +39,8 @@ parts:
       - --http-fastcgi-temp-path=/var/lib/nginx/fastcgi
       - --http-scgi-temp-path=/var/lib/nginx/scgi
       - --http-uwsgi-temp-path=/var/lib/nginx/uwsgi
-      - --user=snap_daemon
-      - --group=snap_daemon
+      - --user=root
+      - --group=root
     build-packages:
       - build-essential
       - libpcre2-dev
