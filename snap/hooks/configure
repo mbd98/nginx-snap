@@ -1,0 +1,31 @@
+#!/bin/bash
+
+get() {
+	snapctl get $1
+}
+
+cat <<EOF > $SNAP_DATA/conf/nginx.conf
+user root;
+daemon $(get daemon);
+thread_pool $(get thread-pool);
+worker_processes $(get worker-processes);
+worker_cpu_affinity $(get worker-cpu-affinity);
+worker_priority $(get worker-priority);
+events {
+	use epoll;
+	accept_mutex $(get events.accept-mutex);
+	accept_mutex_delay $(get events.accept-mutex-delay);
+	multi_accept $(get events.multi-accept);
+	worker_aio_requests $(get events.worker-aio-requests);
+	worker_connections $(get events.worker-connections);
+}
+http {
+	include mime.types;
+	default_type $(get http.default-type);
+	sendfile $(get http.sendfile);
+	keepalive_timeout $(get http.keepalive-timeout);
+	gzip $(get http.gzip);
+	include http/*.conf;
+}
+EOF
+

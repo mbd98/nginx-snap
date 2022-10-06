@@ -1,4 +1,19 @@
 #!/bin/bash
 
 cp -r $SNAP/{conf,html,logs} $SNAP_DATA
+snapctl set \
+	daemon=on \
+	thread-pool='default threads=32 max_queue=65536' \
+	worker-processes=auto \
+	worker-cpu-affinity=auto \
+	worker-priority=0 \
+	events.accept-mutex=off \
+	events.accept-mutex-delay=500ms \
+	events.multi-accept=off \
+	events.worker-aio-requests=32 \
+	events.worker-connections=512 \
+	http.default-type='application/octet-stream' \
+	http.sendfile=on \
+	http.keepalive-timeout=65 \
+	http.gzip=off
 
