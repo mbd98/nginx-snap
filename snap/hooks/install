@@ -11,7 +11,7 @@ snapctl set \
 	events.accept-mutex-delay=500ms \
 	events.multi-accept=off \
 	events.worker-aio-requests=32 \
-	events.worker-connections=512 \
+	events.worker-connections=1024 \
 	http.default-type='application/octet-stream' \
 	http.sendfile=on \
 	http.keepalive-timeout=65 \

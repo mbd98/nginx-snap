@@ -17,6 +17,12 @@ apps:
       - network-bind
   testconf:
     command: bin/nginx -p $SNAP_DATA -e stderr -t
+slots:
+  servfiles:
+    interface: content
+    content: servfiles
+    write:
+      - $SNAP_DATA/html
 parts:
   nginx:
     plugin: autotools
@@ -67,9 +73,16 @@ parts:
       - libgeoip1
     stage:
       - -conf/nginx.conf
+      - -html
   conf:
     plugin: dump
     source: conf
     organize:
       '*': conf/
+  html:
+    plugin: dump
+    source: html
+    organize:
+      '*': html/
+
 

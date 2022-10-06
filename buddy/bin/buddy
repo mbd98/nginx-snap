@@ -1,0 +1,8 @@
+#!/bin/bash
+
+case $1 in
+	cat) cp $SNAP/cat.jpg $SNAP_DATA/servfiles/image.jpg;;
+	pie) cp $SNAP/pie.jpg $SNAP_DATA/servfiles/image.jpg;;
+	*) exit 1;;
+esac
+

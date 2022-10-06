@@ -1,0 +1,25 @@
+name: nginx-buddy
+base: core22
+version: '0.1'
+summary: A special friend of the nginx snap :)
+description: |
+  The nginx snap's best friend.
+  Shares secrets.
+grade: devel
+confinement: strict
+apps:
+  nginx-buddy:
+    command: buddy
+plugs:
+  servfiles:
+    interface: content
+    content: servfiles
+    target: $SNAP_DATA/servfiles
+parts:
+  bin:
+    plugin: dump
+    source: bin
+  img:
+    plugin: dump
+    source: img
+
